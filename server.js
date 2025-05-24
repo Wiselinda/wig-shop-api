@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
 const connectDB = require('./config/db');
 const wigRoutes = require('./routes/wigRoutes');
 const customerRoutes = require('./routes/customerRoutes');
@@ -12,7 +14,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// Swagger documentation route
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// API Routes
 app.use('/api/wigs', wigRoutes);
 app.use('/api/customers', customerRoutes);
 
@@ -21,7 +26,7 @@ app.get('/', (req, res) => {
   res.send('Welcome to the Wig Shop API');
 });
 
-// Connect to DB and start server
+// Start server after DB connection
 const PORT = process.env.PORT || 3000;
 connectDB().then(() => {
   app.listen(PORT, () => {
