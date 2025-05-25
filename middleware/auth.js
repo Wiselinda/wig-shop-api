@@ -1,5 +1,6 @@
 const { expressjwt: jwt } = require('express-jwt');
 const jwksRsa = require('jwks-rsa');
+require('dotenv').config();
 
 const checkJwt = jwt({
   secret: jwksRsa.expressJwtSecret({
@@ -13,3 +14,4 @@ const checkJwt = jwt({
 });
 
 module.exports = checkJwt;
+
