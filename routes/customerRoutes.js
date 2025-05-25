@@ -56,5 +56,87 @@ router.get('/', checkJwt, customerController.getAllCustomers);
  */
 router.post('/', checkJwt, customerController.createCustomer);
 
+/**
+ * @swagger
+ * /api/customers/{id}:
+ *   get:
+ *     summary: Get a customer by ID
+ *     tags: [Customers]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A single customer
+ *       404:
+ *         description: Customer not found
+ */
+router.get('/:id', checkJwt, customerController.getCustomerById);
+
+/**
+ * @swagger
+ * /api/customers/{id}:
+ *   put:
+ *     summary: Update a customer by ID
+ *     tags: [Customers]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               email:
+ *                 type: string
+ *               phone:
+ *                 type: string
+ *               address:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Customer updated
+ *       404:
+ *         description: Customer not found
+ */
+router.put('/:id', checkJwt, customerController.updateCustomer);
+
+/**
+ * @swagger
+ * /api/customers/{id}:
+ *   delete:
+ *     summary: Delete a customer by ID
+ *     tags: [Customers]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Customer deleted
+ *       404:
+ *         description: Customer not found
+ */
+router.delete('/:id', checkJwt, customerController.deleteCustomer);
+
 module.exports = router;
+
 

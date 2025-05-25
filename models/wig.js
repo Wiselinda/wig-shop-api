@@ -6,7 +6,7 @@ const wigSchema = new mongoose.Schema({
   color: { type: String, required: true },
   style: { type: String, required: true },
   price: { type: Number, required: true },
-  material: { type: String, required: true }, // e.g., human hair or synthetic
+  material: { type: String, required: true }, 
   inStock: { type: Boolean, default: true },
   description: { type: String }
 }, {
