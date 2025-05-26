@@ -14,8 +14,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Swagger documentation route
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// Swagger documentation route with explorer and persistAuthorization
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
+  explorer: true,
+  swaggerOptions: {
+    persistAuthorization: true,
+  },
+}));
 
 // API Routes
 app.use('/api/wigs', wigRoutes);
