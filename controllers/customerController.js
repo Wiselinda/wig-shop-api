@@ -1,3 +1,25 @@
+const Customer = require('../models/Customer'); 
+
+exports.getAllCustomers = async (req, res) => {
+  try {
+    const customers = await Customer.find();
+    res.json(customers);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+exports.createCustomer = async (req, res) => {
+  try {
+    const { name, email, phone, address } = req.body;
+    const newCustomer = new Customer({ name, email, phone, address });
+    await newCustomer.save();
+    res.status(201).json(newCustomer);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+};
+
 exports.getCustomerById = async (req, res) => {
   try {
     const customer = await Customer.findById(req.params.id);
@@ -31,5 +53,4 @@ exports.deleteCustomer = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-
 
